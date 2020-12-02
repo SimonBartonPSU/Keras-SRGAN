@@ -20,7 +20,7 @@ np.random.seed(10)
 # Better to use downscale factor as 4
 downscale_factor = 4
 # Remember to change image shape if you are having different size of images
-image_shape = (384,384,3)
+image_shape = (28,28,1)
 
 # Combined network
 def get_gan_network(discriminator, shape, generator, optimizer, vgg_loss):
@@ -119,14 +119,13 @@ if __name__== "__main__":
     parser.add_argument('-e', '--epochs', action='store', dest='epochs', default=1000 ,
                     help='number of iteratios for trainig', type=int)
                     
-    parser.add_argument('-n', '--number_of_images', action='store', dest='number_of_images', default=1000 ,
+    parser.add_argument('-n', '--number_of_images', action='store', dest='number_of_images', default=100,
                     help='Number of Images', type= int)
                     
     parser.add_argument('-r', '--train_test_ratio', action='store', dest='train_test_ratio', default=0.8 ,
                     help='Ratio of train and test Images', type=float)
     
-    values = parser.parse_args()
+    values, unknown = parser.parse_known_args()
     
     train(values.epochs, values.batch_size, values.input_dir, values.output_dir, values.model_save_dir, values.number_of_images, values.train_test_ratio)
-
 
