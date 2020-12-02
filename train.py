@@ -20,7 +20,7 @@ np.random.seed(10)
 # Better to use downscale factor as 4
 downscale_factor = 4
 # Remember to change image shape if you are having different size of images
-image_shape = (28,28,1)
+image_shape = (667,500,3)
 
 # Combined network
 def get_gan_network(discriminator, shape, generator, optimizer, vgg_loss):
@@ -42,8 +42,11 @@ def train(epochs, batch_size, input_dir, output_dir, model_save_dir, number_of_i
     x_train_lr, x_train_hr, x_test_lr, x_test_hr = Utils.load_training_data(input_dir, '.jpg', number_of_images, train_test_ratio) 
     loss = VGG_LOSS(image_shape)  
     
+    print(f"x_train_hr.shape[0] is {x_train_hr.shape[0]}")
     batch_count = int(x_train_hr.shape[0] / batch_size)
+    print(f"batch count is {batch_count}")
     shape = (image_shape[0]//downscale_factor, image_shape[1]//downscale_factor, image_shape[2])
+    #print(f"shape is {shape}")
     
     generator = Generator(shape).generator()
     discriminator = Discriminator(image_shape).discriminator()
@@ -113,13 +116,13 @@ if __name__== "__main__":
     parser.add_argument('-m', '--model_save_dir', action='store', dest='model_save_dir', default='./model/' ,
                     help='Path for model')
 
-    parser.add_argument('-b', '--batch_size', action='store', dest='batch_size', default=64,
+    parser.add_argument('-b', '--batch_size', action='store', dest='batch_size', default=4,
                     help='Batch Size', type=int)
                     
     parser.add_argument('-e', '--epochs', action='store', dest='epochs', default=1000 ,
                     help='number of iteratios for trainig', type=int)
                     
-    parser.add_argument('-n', '--number_of_images', action='store', dest='number_of_images', default=100,
+    parser.add_argument('-n', '--number_of_images', action='store', dest='number_of_images', default=10,
                     help='Number of Images', type= int)
                     
     parser.add_argument('-r', '--train_test_ratio', action='store', dest='train_test_ratio', default=0.8 ,

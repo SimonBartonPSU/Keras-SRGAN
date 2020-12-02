@@ -73,7 +73,8 @@ def load_data_from_dirs(dirs, ext):
             if f.endswith(ext):
                 image = io.imread(os.path.join(d,f))
                 #print(image)
-                if len(image.shape) > 2:
+                #print(f"{len(image.shape)}")
+                if len(image.shape) >= 2:
                     #print("We are in the len(image.shape) > 2 block")
                     files.append(image)
                     file_names.append(os.path.join(d,f))
@@ -86,14 +87,14 @@ def load_data(directory, ext):
     files = load_data_from_dirs(load_path(directory), ext)
     return files
     
-def load_training_data(directory, ext, number_of_images = 20, train_test_ratio = 0.8):
+def load_training_data(directory, ext, number_of_images = 10, train_test_ratio = 0.8):
 
     number_of_train_images = int(number_of_images * train_test_ratio)
     
     files = load_data_from_dirs(load_path(directory), ext)
     #print(f"len of files {len(files)}, num images {number_of_images}")
     if len(files) < number_of_images:
-        os.getcwd()
+        # This block was original error
         print("Number of image files are less then you specified")
         print("Please reduce number of images to %d" % len(files))
         sys.exit()
@@ -122,7 +123,7 @@ def load_training_data(directory, ext, number_of_images = 20, train_test_ratio =
     return x_train_lr, x_train_hr, x_test_lr, x_test_hr
 
 
-def load_test_data_for_model(directory, ext, number_of_images = 100):
+def load_test_data_for_model(directory, ext, number_of_images = 10):
 
     files = load_data_from_dirs(load_path(directory), ext)
     
@@ -139,7 +140,7 @@ def load_test_data_for_model(directory, ext, number_of_images = 100):
     
     return x_test_lr, x_test_hr
     
-def load_test_data(directory, ext, number_of_images = 100):
+def load_test_data(directory, ext, number_of_images = 10):
 
     files = load_data_from_dirs(load_path(directory), ext)
     
