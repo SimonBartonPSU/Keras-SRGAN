@@ -20,7 +20,7 @@ np.random.seed(10)
 # Better to use downscale factor as 4
 downscale_factor = 4
 # Remember to change image shape if you are having different size of images
-image_shape = (667,500,3)
+image_shape = (500,667,3)
 
 # Combined network
 def get_gan_network(discriminator, shape, generator, optimizer, vgg_loss):
